@@ -11,6 +11,7 @@ from .models import Room
 from account.forms import EditUserForm, AddUserForm
 
 
+
 @require_POST
 def create_room(request, uuid):
     name = request.POST.get('name', '')
@@ -21,7 +22,8 @@ def create_room(request, uuid):
     return JsonResponse({'message': 'room created'})
 
 @login_required
-def admin(request):
+def admin(request): 
+    
     rooms = Room.objects.all()
     users = User.objects.filter(is_staff=True)
 

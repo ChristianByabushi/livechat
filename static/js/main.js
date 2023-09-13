@@ -230,16 +230,16 @@ chatInputElement.onfocus = function(e) {
 }
 
 
-    const chat_message_file_input = document.querySelector('#chat_message_file_input')  
-    const selectedFileName = document.querySelector('#selected_file_name'); 
+//     const chat_message_file_input = document.querySelector('#chat_message_file_input')  
+//     const selectedFileName = document.querySelector('#selected_file_name'); 
 
-    chat_message_file_input.addEventListener('change', function() {
-    const file = chat_message_file_input.files[0];
-        console.log(chat_message_file_input)
-        console.log(selectedFileName)
-    if (file) {
-      selectedFileName.textContent = file.name;
-    } else {
-      selectedFileName.textContent = '';
-    }
-  });
+//     chat_message_file_input.addEventListener('change', function() {
+//     const file = chat_message_file_input.files[0];
+//         console.log(chat_message_file_input)
+//         console.log(selectedFileName)
+//     if (file) {
+//       selectedFileName.textContent = file.name;
+//     } else {
+//       selectedFileName.textContent = '';
+//     }
+//   });
