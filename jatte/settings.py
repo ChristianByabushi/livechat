@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-%v$gh67imza=0$i%pky!jxpk*@%t+x-w$lw5lmwbvj)+#p=r#g
 DEBUG = True
 
 
-SECURE_CROSS_ORIGIN_POLICY = None
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 
 ALLOWED_HOSTS = ["*"]
