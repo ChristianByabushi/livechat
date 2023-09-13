@@ -1,0 +1,75 @@
+{% extends 'core/base.html' %}
+{% load static chatextras %}
+
+{% block content %}
+<h1 class="text-2xl">Room "{{ room.uuid }}"</h1>
+<hr class="my-6" />
+<p class="mb-6">
+    <b>Name: </b>{{room.client}} <br>
+    <b>Started :</b>{{room.created_at|timesince}} <br>
+    <b>Status:</b>{{room.get_status_display}} <br>
+    <b>Agent:</br> {% firstof room.agent.name 'None yet ...' %}
+</p>
+<hr class="mb-6">
+<div id="chat_log" class="mb-4 bg-gray-100 rounded-xl h-[300px] overflow-scroll flex flex-col flex-grow">
+    {% for message in room.messages.all %}
+
+
+    <div class="{% if message.created_by %} flex w-full mt-2 space-x-3 max-w-md ml-auto rounded-xl justify-end  {% else %} 
+    flex w-full mt-2 space-x-3 max-w-md text-rose-200
+    {% endif %} ">
+        <div class="flex-shrink-0 h-10 w-10 rounded-full bg-rose-300 text-center pt-2
+        flex-shrink-0 h-10 w-10 rounded-full bg-gray-300 text-center pt-2
+        ">
+            {% if message.created_by%}
+            Me
+            {% else%}
+            {{message.sent_by |initials}}
+
+            {% endif %}
+        </div>
+        
+        <div class="bg-blue-300 p-3 rounded-lg rounded-br-lg">
+            <p class="text-sm">{{message.body}}</p>
+
+            <span class="text-xs text-gray-500 leading-none">
+                {{message.created_at|timesince}} ago
+            </span>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+{% if room.status == 'active' %}
+<input type="text" name="body" id="chat_message_input" class="w-full mb-4 p-4 bg-gray-100 rounded-xl"
+    placeholder="Type your message">
+<!-- <label style="background-color: inherit; width: 2rem;" for="chat_message_file_input"
+    class="w-10 h-8 bg-gray-100 rounded-md flex items-center justify-center rounded-xl">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-3"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path
+                d="M17 5H10.2C9.0799 5 8.51984 5 8.09202 5.21799C7.71569 5.40973 7.40973 5.71569 7.21799 6.09202C7 6.51984 7 7.0799 7 8.2V11.8C7 12.9201 7 13.4802 7.21799 13.908C7.40973 14.2843 7.71569 14.5903 8.09202 14.782C8.51984 15 9.0799 15 10.2 15H17.8C18.9201 15 19.4802 15 19.908 14.782C20.2843 14.5903 20.5903 14.2843 20.782 13.908C21 13.4802 21 12.9201 21 11.8V9M17 5L21 9M17 5V7.4C17 7.96005 17 8.24008 17.109 8.45399C17.2049 8.64215 17.3578 8.79513 17.546 8.89101C17.7599 9 18.0399 9 18.6 9H21M17 19H9.4C7.15979 19 6.03969 19 5.18404 18.564C4.43139 18.1805 3.81947 17.5686 3.43597 16.816C3 15.9603 3 14.8402 3 12.6V9"
+                stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </g>
+    </svg>
+</label>
+<input type="file"
+    accept="image/*, application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    name="body" id="chat_message_file_input" class="hidden">
+<span style="margin-top: 1.4rem;" id="selected_file_name"></span> -->
+<button id="chat_message_submit" class="py-2 px-6 bg-rose-600 text-white rounded-xl">Send</button>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+{% if room.status == 'active' %}
+{{room.uuid|json_script:'room_uuid'}}
+{{request.user.name|json_script:'user_name'}}
+{{request.user.id|json_script:'user_id'}}
+<script src="{% static 'js/main_admin.js' %}"></script>
+{% endif %}
+
+{% endblock %}
