@@ -1,6 +1,3 @@
-# Jatte
+# ABS Project inspired from from Code With Stein# project
 
-This project is the base starter for a tutorial from Code With Stein# livechat
-# livechat
-# livechat
-# livechat
+#Real livechat using django and tailwind framework 
