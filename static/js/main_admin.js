@@ -94,7 +94,7 @@ function onChatMessage(data) {
 }
 
 //websocket
-chatSocket = new WebSocket(`ws://${window.location.host}/ws/chat/${chatRoom}/`)
+chatSocket = new WebSocket(`wss://${window.location.host}/ws/chat/${chatRoom}/`)
 
 chatSocket.onmessage = function(e) {
     console.log('on message in the room')
